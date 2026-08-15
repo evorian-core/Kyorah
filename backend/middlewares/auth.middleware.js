@@ -10,7 +10,6 @@ export default function authMiddleware(
 
     console.log("========== AUTH DEBUG ==========");
     console.log("Authorization:", authHeader);
-    console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
     if (!authHeader) {
 
@@ -31,9 +30,6 @@ export default function authMiddleware(
         "Bearer ",
         ""
     );
-
-
-    console.log("Token recebido:", token);
 
 
     try {
