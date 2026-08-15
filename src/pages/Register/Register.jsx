@@ -1,111 +1,318 @@
 import "./Register.css";
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+
 import {
-  FiArrowRight,
-  FiUser,
-  FiMail,
-  FiLock,
+    FiArrowRight,
+    FiUser,
+    FiMail,
+    FiLock,
 } from "react-icons/fi";
 
+import { useAuth } from "../../contexts/AuthContext";
+
 export default function Register() {
-  return (
-    <main className="register-page">
 
-      <div className="register-background"></div>
+    const navigate = useNavigate();
 
-      <div className="register-card">
+    const { register } = useAuth();
 
-        <img
-          src="/favicon.png"
-          alt="Kyorah"
-          className="register-logo"
-        />
+    const [loading, setLoading] = useState(false);
 
-        <h1>Criar conta</h1>
+    const [error, setError] = useState("");
 
-        <p>
-          Crie sua conta e comece a conversar com a Kyorah.
-        </p>
+    const [form, setForm] = useState({
 
-        <form className="register-form">
+        name: "",
 
-          <div className="input-group">
+        email: "",
 
-            <FiUser />
+        password: "",
 
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Nome completo"
-            />
+        confirmPassword: "",
 
-          </div>
+        ageGroup: "18+",
 
-          <div className="input-group">
+    });
 
-            <FiMail />
+    function handleChange(e) {
 
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="E-mail"
-            />
+        setForm({
 
-          </div>
+            ...form,
 
-          <div className="input-group">
+            [e.target.name]: e.target.value,
 
-            <FiLock />
+        });
 
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Senha"
-            />
+    }
 
-          </div>
+    async function handleSubmit(e) {
 
-          <div className="input-group">
+        e.preventDefault();
 
-            <FiLock />
+        setError("");
 
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirmar senha"
-            />
+        if (form.password !== form.confirmPassword) {
 
-          </div>
+            setError("As senhas não coincidem.");
 
-          <button
-            type="submit"
-            className="register-button"
-          >
-            Criar conta
-            <FiArrowRight />
-          </button>
+            return;
 
-        </form>
+        }
 
-        <div className="register-links">
+        setLoading(true);
 
-          <Link to="/login">
-            Já tenho uma conta
-          </Link>
+        try {
 
-          <Link to="/">
-            Voltar
-          </Link>
+            await register({
 
-        </div>
+                name: form.name,
 
-      </div>
+                email: form.email,
 
-    </main>
-  );
+                password: form.password,
+
+                ageGroup: form.ageGroup,
+
+            });
+
+            navigate("/login");
+
+        }
+
+        catch (err) {
+
+            setError(
+
+                err.message ||
+
+                "Erro ao criar conta."
+
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+    return (
+
+        <main className="register-page">
+
+            <div className="register-background"></div>
+
+            <div className="register-card">
+
+                <img
+
+                    src="/favicon.png"
+
+                    alt="Kyorah"
+
+                    className="register-logo"
+
+                />
+
+                <h1>
+
+                    Criar conta
+
+                </h1>
+
+                <p>
+
+                    Crie sua conta e comece a conversar com a Kyorah.
+
+                </p>
+
+                <form
+
+                    className="register-form"
+
+                    onSubmit={handleSubmit}
+
+                >
+
+                    <div className="input-group">
+
+                        <FiUser />
+
+                        <input
+
+                            type="text"
+
+                            name="name"
+
+                            placeholder="Nome completo"
+
+                            value={form.name}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="input-group">
+
+                        <FiMail />
+
+                        <input
+
+                            type="email"
+
+                            name="email"
+
+                            placeholder="E-mail"
+
+                            value={form.email}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="input-group">
+
+                        <FiLock />
+
+                        <input
+
+                            type="password"
+
+                            name="password"
+
+                            placeholder="Senha"
+
+                            value={form.password}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="input-group">
+
+                        <FiLock />
+
+                        <input
+
+                            type="password"
+
+                            name="confirmPassword"
+
+                            placeholder="Confirmar senha"
+
+                            value={form.confirmPassword}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="input-group">
+
+                        <select
+
+                            name="ageGroup"
+
+                            value={form.ageGroup}
+
+                            onChange={handleChange}
+
+                        >
+
+                            <option value="13-17">
+
+                                13–17 anos
+
+                            </option>
+
+                            <option value="18+">
+
+                                18 anos ou mais
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    {error && (
+
+                        <div className="register-error">
+
+                            {error}
+
+                        </div>
+
+                    )}
+
+                    <button
+
+                        type="submit"
+
+                        className="register-button"
+
+                        disabled={loading}
+
+                    >
+
+                        {
+
+                            loading
+
+                                ? "Criando..."
+
+                                : "Criar conta"
+
+                        }
+
+                        <FiArrowRight />
+
+                    </button>
+
+                </form>
+
+                <div className="register-links">
+
+                    <Link to="/login">
+
+                        Já tenho uma conta
+
+                    </Link>
+
+                    <Link to="/">
+
+                        Voltar
+
+                    </Link>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    );
+
 }

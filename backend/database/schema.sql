@@ -1,89 +1,117 @@
--- ===========================
--- Kyorah Database Schema v1
--- ===========================
+-- ============================
+-- KYORAH DATABASE
+-- EVORIAN • OMNIA
+-- ============================
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS chats CASCADE;
+DROP TABLE IF EXISTS memories CASCADE;
+DROP TABLE IF EXISTS subscriptions CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
 
-    name VARCHAR(100) NOT NULL,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    name VARCHAR(120) NOT NULL,
 
     email VARCHAR(255) UNIQUE NOT NULL,
 
     password_hash TEXT NOT NULL,
 
-    age_group VARCHAR(30),
+    age_group VARCHAR(20),
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    avatar TEXT,
+
+    plan VARCHAR(20) NOT NULL DEFAULT 'free',
+
+    last_login TIMESTAMP,
+
+    created_at TIMESTAMP DEFAULT NOW(),
+
+    updated_at TIMESTAMP DEFAULT NOW()
+
 );
 
-CREATE TABLE IF NOT EXISTS conversations (
-    id SERIAL PRIMARY KEY,
 
-    user_id INTEGER NOT NULL,
 
-    title VARCHAR(255) DEFAULT 'Nova conversa',
+CREATE TABLE IF NOT EXISTS chats (
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_conversation_user
-        FOREIGN KEY(user_id)
+    user_id UUID
         REFERENCES users(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    beta_id VARCHAR(20),
+
+    title VARCHAR(255)
+        DEFAULT 'Nova conversa',
+
+    created_at TIMESTAMP
+        DEFAULT NOW(),
+
+    updated_at TIMESTAMP
+        DEFAULT NOW(),
+
+    CONSTRAINT chats_owner_check
+    CHECK (
+        user_id IS NOT NULL
+        OR beta_id IS NOT NULL
+    )
+
 );
+
+
 
 CREATE TABLE IF NOT EXISTS messages (
-    id SERIAL PRIMARY KEY,
 
-    conversation_id INTEGER NOT NULL,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    chat_id UUID NOT NULL
+        REFERENCES chats(id)
+        ON DELETE CASCADE,
 
     role VARCHAR(20) NOT NULL,
 
+    type VARCHAR(20) NOT NULL DEFAULT 'text',
+
     content TEXT NOT NULL,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW()
 
-    CONSTRAINT fk_message_conversation
-        FOREIGN KEY(conversation_id)
-        REFERENCES conversations(id)
-        ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS memory (
-    id SERIAL PRIMARY KEY,
 
-    user_id INTEGER NOT NULL,
 
-    memory_key VARCHAR(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS memories (
 
-    memory_value TEXT,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
-    CONSTRAINT fk_memory_user
-        FOREIGN KEY(user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    content TEXT NOT NULL,
+
+    created_at TIMESTAMP DEFAULT NOW()
+
 );
 
-CREATE TABLE IF NOT EXISTS files (
-    id SERIAL PRIMARY KEY,
 
-    user_id INTEGER NOT NULL,
 
-    filename VARCHAR(255),
+CREATE TABLE IF NOT EXISTS subscriptions (
 
-    filetype VARCHAR(100),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-    filesize BIGINT,
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
 
-    filepath TEXT,
+    plan VARCHAR(20) NOT NULL DEFAULT 'free',
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    active BOOLEAN DEFAULT TRUE,
 
-    CONSTRAINT fk_file_user
-        FOREIGN KEY(user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    expires_at TIMESTAMP,
+
+    created_at TIMESTAMP DEFAULT NOW()
+
 );

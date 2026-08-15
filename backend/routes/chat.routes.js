@@ -1,55 +1,32 @@
 import express from "express";
-import { generateResponseStream } from "../providers/GeminiProvider.js";
 
-const router = express.Router();
+import betaOrAuthMiddleware
+    from "../middlewares/betaOrAuth.middleware.js";
 
-const conversation = [];
+import { chat } from "../controllers/chat.controller.js";
 
-router.post("/", async (req, res) => {
-  try {
-    const { message } = req.body;
 
-    if (!message) {
-      return res.status(400).json({
-        error: "Mensagem não fornecida",
-      });
-    }
+const router =
+    express.Router();
 
-    conversation.push({
-      role: "user",
-      content: message,
-    });
 
-    const stream = await generateResponseStream(conversation);
+/* ===========================
+   AUTENTICAÇÃO
+=========================== */
 
-res.setHeader("Content-Type", "text/plain; charset=utf-8");
-res.setHeader("Transfer-Encoding", "chunked");
+router.use(
+    betaOrAuthMiddleware
+);
 
-let fullReply = "";
 
-for await (const chunk of stream) {
-  const text = chunk.choices[0]?.delta?.content || "";
+/* ===========================
+   CHAT
+=========================== */
 
-  if (text) {
-    fullReply += text;
-    res.write(text);
-  }
-}
+router.post(
+    "/",
+    chat
+);
 
-conversation.push({
-  role: "assistant",
-  content: fullReply,
-});
-
-res.end();
-
-  } catch (error) {
-    console.error("ERRO COMPLETO:", error);
-
-    res.status(500).json({
-      error: error.message,
-    });
-  }
-});
 
 export default router;

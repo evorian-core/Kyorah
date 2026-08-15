@@ -20,9 +20,9 @@
 
     padding:14px;
 
-    background:#141A2E;
+    background:var(--surface);
 
-    border:1px solid rgba(255,255,255,.06);
+    border:1px solid var(--border);
 
     border-radius:22px;
 
@@ -32,9 +32,10 @@
 
 .composer:focus-within{
 
-    border-color:#7B61FF;
+    border-color:var(--accent);
 
-    box-shadow:0 0 0 4px rgba(123,97,255,.15);
+box-shadow:0 0 0 4px
+color-mix(in srgb, var(--accent) 20%, transparent);
 
 }
 
@@ -50,7 +51,7 @@
 
     outline:none;
 
-    color:white;
+    color:var(--text);
 
     font-size:16px;
 
@@ -70,8 +71,7 @@
 
 .composer textarea::placeholder{
 
-    color:#8C95AE;
-
+    color:var(--text-muted);
 }
 
 .icon-button{
@@ -85,7 +85,7 @@
 
     background:transparent;
 
-    color:#A8B1C7;
+    color:var(--text-secondary);
 
     cursor:pointer;
 
@@ -115,10 +115,11 @@
     border-radius:14px;
 
     background:linear-gradient(
-        135deg,
-        #7B61FF,
-        #00D6FF
-    );
+    135deg,
+    var(--accent),
+    var(--accent-light)
+);
+
 
     color:white;
 
@@ -138,7 +139,8 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 12px 30px rgba(123,97,255,.35);
+    box-shadow:0 12px 30px
+color-mix(in srgb, var(--accent) 35%, transparent);
 
 }
 
@@ -156,7 +158,7 @@
 
 .send-button.loading{
 
-    background:#58607A;
+    background:var(--surface-3);
 
 }
 
@@ -167,7 +169,7 @@
 
     border:2px solid rgba(255,255,255,.25);
 
-    border-top:2px solid white;
+    border-top:2px solid var(--text);
 
     border-radius:50%;
 
@@ -180,6 +182,74 @@
     to{
 
         transform:rotate(360deg);
+
+    }
+
+}
+
+/* ========================= */
+/* MOBILE                    */
+/* ========================= */
+
+@media (max-width:900px){
+
+    .composer-wrapper{
+
+        position:fixed;
+
+        left:0;
+        right:0;
+        bottom:0;
+
+        padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+
+        justify-content:center;
+
+        background:linear-gradient(
+            to top,
+            var(--bg),
+            color-mix(in srgb, var(--bg) 85%, transparent),
+            transparent
+        );
+
+        backdrop-filter:blur(20px);
+
+        z-index:50;
+
+    }
+
+    .composer{
+
+        width:100%;
+
+        min-height:64px;
+
+        border-radius:20px;
+
+        padding:12px;
+
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.18);
+
+    }
+
+    .composer textarea{
+
+        font-size:15px;
+
+    }
+
+    .icon-button{
+
+        width:40px;
+        height:40px;
+
+    }
+
+    .send-button{
+
+        width:42px;
+        height:42px;
 
     }
 

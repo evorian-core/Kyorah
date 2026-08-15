@@ -263,3 +263,39 @@
     }
 
 }
+
+.register-error{
+
+    margin:18px 0;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:rgba(255,70,70,.12);
+
+    color:#ff7b7b;
+
+    border:1px solid rgba(255,70,70,.25);
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+.input-group select{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:inherit;
+
+    font:inherit;
+
+}

@@ -1,9 +1,16 @@
 import "dotenv/config";
+
+console.log("DATABASE_URL:");
+console.log(process.env.DATABASE_URL);
+
 import express from "express";
 import cors from "cors";
 import pool from "./config/database.js";
+import { initializeDatabase } from "./database/init.js";
+import authRoutes from "./routes/auth.routes.js"
 
 import chatRoutes from "./routes/chat.routes.js";
+import chatsRoutes from "./routes/chats.routes.js";
 
 const app = express();
 
@@ -24,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/chat", chatRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/chats", chatsRoutes);
 
 try {
   await pool.query("SELECT NOW()");
@@ -33,7 +42,10 @@ try {
   console.error(error);
 }
 
+
 const PORT = process.env.PORT || 3001;
+
+// await initializeDatabase();
 
 app.listen(PORT, () => {
   console.log(`🚀 Kyorah API rodando na porta ${PORT}`);

@@ -1,146 +1,319 @@
 import "./Landing.css";
-import { Link } from "react-router-dom";
-import {
-  FiArrowRight,
-  FiMessageCircle,
-  FiCpu,
-  FiFileText,
-  FiMic,
-} from "react-icons/fi";
+
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+
+  const navigate = useNavigate();
+
   return (
-    <main className="landing">
 
-      <div className="landing-background"></div>
+    <div className="landing">
 
-      <header className="landing-header">
 
-        <div className="brand">
+      {/* =========================
+          HERO
+      ========================= */}
+
+      <section className="hero">
+
+        <div className="hero-glow"></div>
+
+
+        <div className="hero-content">
 
           <img
             src="/favicon.png"
             alt="Kyorah"
+            className="hero-logo"
           />
 
-          <span>Kyorah</span>
 
-        </div>
+          <span className="hero-badge">
+            OMNIA • EVORIAN
+          </span>
 
-        <div className="header-buttons">
 
-          <Link to="/login" className="btn-secondary">
-            Entrar
-          </Link>
+          <h1>
 
-          <Link to="/register" className="btn-primary">
-            Criar conta
-          </Link>
+            Conheça a
 
-        </div>
+            <span> Kyorah</span>
 
-      </header>
+          </h1>
 
-      <section className="hero">
 
-        <div className="hero-badge">
-          Desenvolvida pela MediaLab
-        </div>
+          <p>
 
-        <h1>
-          Conheça a
-          <span> Kyorah</span>
-        </h1>
+            Uma Inteligência Artificial criada para
+            conversar, pesquisar, gerar imagens,
+            lembrar informações importantes e ajudar
+            você todos os dias.
 
-        <p>
-          Converse, aprenda, crie ideias,
-          desenvolva projetos e resolva
-          problemas com uma Inteligência
-          Artificial criada para ajudar você.
-        </p>
+          </p>
 
-        <div className="hero-buttons">
 
-          <Link to="/register" className="btn-primary large">
-            Começar agora
-            <FiArrowRight />
-          </Link>
+          {/* =========================
+              BOTÕES PRINCIPAIS
+          ========================= */}
 
-          <Link to="/login" className="btn-secondary large">
-            Já tenho uma conta
-          </Link>
+          <div className="hero-buttons">
+
+            <button
+              className="primary"
+              onClick={() =>
+                navigate("/register")
+              }
+            >
+              Começar gratuitamente
+            </button>
+
+
+            <button
+              className="secondary"
+              onClick={() =>
+                navigate("/login")
+              }
+            >
+              Fazer Login
+            </button>
+
+          </div>
+
+
+          {/* =========================
+              BETA ACCESS
+          ========================= */}
+
+          <div
+            className="beta-landing-card"
+            onClick={() =>
+              navigate("/beta")
+            }
+          >
+
+            <div className="beta-landing-top">
+
+              <span className="beta-status-dot">
+                ●
+              </span>
+
+              <span className="beta-landing-label">
+                BETA ACCESS
+              </span>
+
+              <span className="beta-landing-version">
+                00X
+              </span>
+
+            </div>
+
+
+            <h3>
+              Você recebeu acesso antecipado.
+            </h3>
+
+
+            <p>
+              Entre na experiência demonstrativa
+              exclusiva da Kyorah.
+            </p>
+
+
+            <div className="beta-landing-bottom">
+
+              <span>
+                07 acessos disponíveis
+              </span>
+
+              <strong>
+                ENTRAR NO BETA →
+              </strong>
+
+            </div>
+
+          </div>
+
 
         </div>
 
       </section>
+
+
+
+      {/* =========================
+          RECURSOS
+      ========================= */}
 
       <section className="features">
 
-        <div className="feature-card">
+        <h2>
+          O que a Kyorah pode fazer?
+        </h2>
 
-          <FiMessageCircle />
 
-          <h3>Conversas Inteligentes</h3>
+        <div className="features-grid">
 
-          <p>
-            Respostas naturais, organizadas
-            e fáceis de entender.
-          </p>
 
-        </div>
+          <div className="feature-card">
 
-        <div className="feature-card">
+            <h3>
+              🧠 Inteligência
+            </h3>
 
-          <FiCpu />
+            <p>
+              Respostas rápidas, explicações,
+              programação e auxílio nos estudos.
+            </p>
 
-          <h3>Memória</h3>
+          </div>
 
-          <p>
-            A Kyorah lembrará informações
-            importantes para ajudar melhor.
-          </p>
 
-        </div>
+          <div className="feature-card">
 
-        <div className="feature-card">
+            <h3>
+              🎨 Imagens
+            </h3>
 
-          <FiFileText />
+            <p>
+              Gere imagens usando inteligência
+              artificial em poucos segundos.
+            </p>
 
-          <h3>Arquivos</h3>
+          </div>
 
-          <p>
-            Analise PDFs, documentos,
-            apresentações e muito mais.
-          </p>
 
-        </div>
+          <div className="feature-card">
 
-        <div className="feature-card">
+            <h3>
+              🌐 Pesquisa
+            </h3>
 
-          <FiMic />
+            <p>
+              Quando necessário, pesquisa na internet
+              para fornecer informações atualizadas.
+            </p>
 
-          <h3>Voz</h3>
+          </div>
 
-          <p>
-            Converse naturalmente utilizando
-            comandos por voz.
-          </p>
+
+          <div className="feature-card">
+
+            <h3>
+              🧠 Memória
+            </h3>
+
+            <p>
+              Lembra informações importantes para
+              tornar as conversas mais naturais.
+            </p>
+
+          </div>
+
 
         </div>
 
       </section>
 
-      <footer>
 
-        <h2>Kyorah</h2>
+
+      {/* =========================
+          MEMBERSHIP
+      ========================= */}
+
+      <section className="membership">
+
+        <h2>
+          Kyorah Membership
+        </h2>
+
 
         <p>
-          Um produto da divisão OMNIA,
-          desenvolvido pela MediaLab.
+          Escolha o plano ideal para você.
+        </p>
+
+
+        <div className="membership-cards">
+
+
+          <div className="membership-card">
+
+            <h3>
+              Free
+            </h3>
+
+            <span>
+              Grátis
+            </span>
+
+            <p>
+              Ideal para começar.
+            </p>
+
+          </div>
+
+
+          <div className="membership-card featured">
+
+            <h3>
+              Basic
+            </h3>
+
+            <span>
+              R$ 9,90
+            </span>
+
+            <p>
+              Mais mensagens e imagens.
+            </p>
+
+          </div>
+
+
+          <div className="membership-card">
+
+            <h3>
+              Pro
+            </h3>
+
+            <span>
+              R$ 19,90
+            </span>
+
+            <p>
+              A melhor experiência da Kyorah.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+      {/* =========================
+          RODAPÉ
+      ========================= */}
+
+      <footer>
+
+        <img
+          src="/favicon.png"
+          alt="Kyorah"
+        />
+
+
+        <p>
+          © 2026 EVORIAN • OMNIA
         </p>
 
       </footer>
 
-    </main>
+
+    </div>
+
   );
+
 }

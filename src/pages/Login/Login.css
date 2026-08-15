@@ -1,7 +1,9 @@
 .login-page{
+
     min-height:100vh;
 
     display:flex;
+
     justify-content:center;
     align-items:center;
 
@@ -9,27 +11,62 @@
 
     overflow:hidden;
 
-    background:#090B16;
+    background:
+    radial-gradient(circle at top,#7b61ff22,transparent 40%),
+    linear-gradient(
+        180deg,
+        #090B12,
+        #0D1020,
+        #090B12
+    );
 
     padding:30px;
+
 }
 
-/* ========================= */
-
-.login-background{
+.login-glow{
 
     position:absolute;
 
-    inset:0;
+    width:700px;
+    height:700px;
+
+    border-radius:50%;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(123,97,255,.18), transparent 35%),
-        radial-gradient(circle at 80% 25%, rgba(0,214,255,.14), transparent 35%),
-        radial-gradient(circle at center, rgba(255,255,255,.02), transparent 70%);
+    radial-gradient(
+        circle,
+        rgba(123,97,255,.22),
+        transparent 70%
+    );
+
+    filter:blur(80px);
+
+    animation:glowMove 8s ease-in-out infinite;
 
 }
 
-/* ========================= */
+@keyframes glowMove{
+
+    0%{
+
+        transform:translateY(-30px);
+
+    }
+
+    50%{
+
+        transform:translateY(30px);
+
+    }
+
+    100%{
+
+        transform:translateY(-30px);
+
+    }
+
+}
 
 .login-card{
 
@@ -40,42 +77,60 @@
     width:100%;
     max-width:470px;
 
-    padding:48px;
+    background:rgba(20,24,40,.72);
 
-    background:#111628;
+    backdrop-filter:blur(20px);
 
-    border:1px solid rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
 
-    border-radius:34px;
+    border-radius:28px;
+
+    padding:45px;
+
+    text-align:center;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.35),
-        0 0 80px rgba(123,97,255,.08);
+    0 20px 60px rgba(0,0,0,.45);
 
 }
 
 .login-logo{
 
-    width:90px;
-    height:90px;
+    width:80px;
 
-    display:block;
+    margin-bottom:18px;
 
-    margin:0 auto 28px;
+    filter:drop-shadow(
+        0 0 20px rgba(123,97,255,.45)
+    );
 
-    border-radius:24px;
+}
 
-    box-shadow:0 0 45px rgba(123,97,255,.35);
+.login-badge{
+
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:#C7D2FE;
+
+    font-size:13px;
+
+    margin-bottom:25px;
 
 }
 
 .login-card h1{
 
-    text-align:center;
-
     color:white;
 
-    font-size:34px;
+    font-size:42px;
 
     margin-bottom:12px;
 
@@ -83,185 +138,197 @@
 
 .login-card p{
 
-    text-align:center;
+    color:#AEB7CB;
 
-    color:#A9B4CE;
+    line-height:1.7;
 
-    margin-bottom:36px;
-
-    line-height:1.6;
+    margin-bottom:35px;
 
 }
-
-/* ========================= */
-
-.login-form{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
-}
-
-/* ========================= */
 
 .input-group{
 
     display:flex;
 
-    align-items:center;
+    flex-direction:column;
 
-    gap:14px;
+    gap:10px;
 
-    padding:18px;
+    margin-bottom:22px;
 
-    border-radius:18px;
-
-    background:#171D33;
-
-    border:1px solid rgba(255,255,255,.05);
-
-    transition:.25s;
+    text-align:left;
 
 }
 
-.input-group:focus-within{
+.input-group label{
 
-    border-color:#7B61FF;
+    color:white;
 
-    box-shadow:0 0 0 4px rgba(123,97,255,.15);
+    font-size:15px;
 
-}
-
-.input-group svg{
-
-    color:#7B61FF;
-
-    font-size:20px;
+    font-weight:600;
 
 }
 
 .input-group input{
 
-    flex:1;
+    height:54px;
 
-    border:none;
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#151B30;
+
+    color:white;
+
+    padding:0 18px;
 
     outline:none;
 
-    background:none;
+    transition:.25s;
+
+    font-size:15px;
+
+}
+
+.input-group input:focus{
+
+    border-color:#7B61FF;
+
+    box-shadow:
+    0 0 0 4px rgba(123,97,255,.18);
+
+}
+
+.login-button{
+
+    width:100%;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        #7B61FF,
+        #5B48D6
+    );
 
     color:white;
 
     font-size:16px;
 
-}
-
-.input-group input::placeholder{
-
-    color:#7D88A8;
-
-}
-
-/* ========================= */
-
-.login-button{
-
-    margin-top:10px;
-
-    height:58px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:linear-gradient(
-        135deg,
-        #7B61FF,
-        #00D6FF
-    );
-
-    color:white;
-
-    font-size:17px;
-
-    font-weight:600;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:12px;
+    font-weight:700;
 
     cursor:pointer;
 
     transition:.25s;
 
+    margin-top:10px;
+
 }
 
 .login-button:hover{
 
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 
-    box-shadow:0 20px 40px rgba(123,97,255,.30);
+    box-shadow:
+    0 15px 35px rgba(123,97,255,.35);
 
 }
 
-/* ========================= */
+.login-divider{
 
-.login-links{
-
-    margin-top:28px;
+    margin:28px 0;
 
     display:flex;
 
-    justify-content:space-between;
+    align-items:center;
+
+    gap:15px;
+
+    color:#7D8BA3;
 
 }
 
-.login-links a{
+.login-divider::before,
+.login-divider::after{
 
-    color:#9EA9C7;
+    content:"";
 
-    text-decoration:none;
+    flex:1;
 
-    transition:.25s;
+    height:1px;
+
+    background:rgba(255,255,255,.08);
 
 }
 
-.login-links a:hover{
+.create-account{
+
+    width:100%;
+
+    height:52px;
+
+    border-radius:16px;
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.08);
 
     color:white;
 
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:15px;
+
+    font-weight:600;
+
 }
 
-/* ========================= */
+.create-account:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
 
 @media(max-width:600px){
 
-    .login-card{
+.login-card{
 
-        padding:34px 26px;
+padding:35px 25px;
 
-    }
+}
 
-    .login-card h1{
+.login-card h1{
 
-        font-size:28px;
+font-size:34px;
 
-    }
+}
 
-    .login-links{
+}
 
-        flex-direction:column;
+.login-error{
 
-        gap:18px;
+    margin-top:16px;
 
-        align-items:center;
+    padding:12px;
 
-    }
+    border-radius:12px;
+
+    background:rgba(255,70,70,.12);
+
+    color:#ff8080;
+
+    border:1px solid rgba(255,70,70,.25);
+
+    font-size:14px;
+
+    text-align:center;
 
 }

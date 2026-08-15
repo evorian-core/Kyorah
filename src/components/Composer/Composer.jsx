@@ -8,6 +8,8 @@ export default function Composer() {
 
   const textareaRef = useRef(null);
 
+  const fileInputRef = useRef(null);
+
   const { sendMessage, loading } = useChat();
 
   useEffect(() => {
@@ -42,9 +44,20 @@ export default function Composer() {
     <div className="composer-wrapper">
       <div className="composer">
 
-        <button className="icon-button">
-          <FiPaperclip />
-        </button>
+        <button
+  className="icon-button"
+  onClick={() => fileInputRef.current?.click()}
+>
+  <FiPaperclip />
+</button>
+
+<input
+  ref={fileInputRef}
+  type="file"
+  accept="image/*,.pdf"
+  hidden
+  onChange={handleFileSelect}
+/>
 
         <textarea
           ref={textareaRef}
@@ -74,4 +87,20 @@ export default function Composer() {
       </div>
     </div>
   );
+}
+
+function handleFileSelect(e) {
+  const file = e.target.files?.[0];
+
+  if (!file) return;
+
+  if (file.type.startsWith("image/")) {
+    console.log("Imagem selecionada:", file);
+    // Próximo sprint:
+    // sendImage(file)
+  } else if (file.type === "application/pdf") {
+    alert("Leitura de PDF chegará em breve. 💜");
+  }
+
+  e.target.value = "";
 }

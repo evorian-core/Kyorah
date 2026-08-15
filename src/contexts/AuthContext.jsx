@@ -1,66 +1,136 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
+
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-      setUser(session?.user ?? null);
-      setLoading(false);
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
+        fetch("http://localhost:3001/api/auth/me", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(async (response) => {
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Sessão inválida."
+                    );
+                }
+
+                return data;
+            })
+            .then((data) => {
+                if (data.success) {
+                    setUser(data.user);
+                } else {
+                    localStorage.removeItem("token");
+                    setUser(null);
+                }
+            })
+            .catch(() => {
+                localStorage.removeItem("token");
+                setUser(null);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+    async function login(email, password) {
+        const response = await fetch(
+            "http://localhost:3001/api/auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(
+                data.message || "Não foi possível fazer login."
+            );
+        }
+
+        localStorage.setItem("token", data.token);
+
+        setUser(data.user);
+
+        return data;
     }
 
-    loadSession();
+    async function register(userData) {
+        const response = await fetch(
+            "http://localhost:3001/api/auth/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            }
+        );
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+        const data = await response.json();
 
-    return () => subscription.unsubscribe();
-  }, []);
+        if (!response.ok || !data.success) {
+            throw new Error(
+                data.message || "Não foi possível criar a conta."
+            );
+        }
 
-  async function signIn(email, password) {
-    return await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-  }
+        return data;
+    }
 
-  async function signUp(email, password) {
-    return await supabase.auth.signUp({
-      email,
-      password,
-    });
-  }
+    function logout() {
+        localStorage.removeItem("token");
+        setUser(null);
+    }
 
-  async function signOut() {
-    await supabase.auth.signOut();
-  }
+    function getToken() {
+        return localStorage.getItem("token");
+    }
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        signIn,
-        signUp,
-        signOut,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                login,
+                register,
+                logout,
+                getToken,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+    return useContext(AuthContext);
 }

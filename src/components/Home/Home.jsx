@@ -2,12 +2,38 @@ import "./Home.css";
 
 export default function Home() {
 
+  const betaUser = (() => {
+
+    try {
+
+      const saved =
+        sessionStorage.getItem("kyorah_beta_user");
+
+      return saved
+        ? JSON.parse(saved)
+        : null;
+
+    } catch {
+
+      return null;
+
+    }
+
+  })();
+
+
   const hour = new Date().getHours();
 
   let greeting = "Boa noite";
 
-  if (hour >= 5 && hour < 12) greeting = "Bom dia";
-  if (hour >= 12 && hour < 18) greeting = "Boa tarde";
+  if (hour >= 5 && hour < 12) {
+    greeting = "Bom dia";
+  }
+
+  if (hour >= 12 && hour < 18) {
+    greeting = "Boa tarde";
+  }
+
 
   return (
 
@@ -15,17 +41,20 @@ export default function Home() {
 
       <div className="home-glow"></div>
 
+
       <img
         src="/favicon.png"
         alt="Kyorah"
         className="home-logo float"
       />
 
+
       <span className="home-greeting">
 
-        {greeting}
+        {betaUser?.name || greeting}
 
       </span>
+
 
       <h1>
 
@@ -40,6 +69,7 @@ export default function Home() {
         </span>
 
       </h1>
+
 
       <p>
 

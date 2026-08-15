@@ -1,0 +1,106 @@
+.account {
+
+  padding:40px;
+
+  color:var(--text);
+
+}
+
+
+
+.account header p {
+
+  opacity:.6;
+
+}
+
+
+
+.account-card {
+
+  margin-top:30px;
+
+  padding:30px;
+
+  border-radius:24px;
+
+  background:var(--surface);
+
+  backdrop-filter:blur(20px);
+
+  text-align:center;
+
+  max-width:400px;
+
+}
+
+
+
+.avatar {
+
+  width:80px;
+
+  height:80px;
+
+  margin:auto;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:32px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #2D5BFF,
+    #61A8FF
+  );
+
+}
+
+
+
+.account-card button {
+
+  margin-top:20px;
+
+  padding:12px 20px;
+
+  border:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+}
+
+.account-back {
+  background: transparent;
+  border: none;
+
+  color: inherit;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  padding: 8px 0;
+  margin-bottom: 24px;
+
+  opacity: 0.75;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.account-back:hover {
+  opacity: 1;
+  transform: translateX(-3px);
+}

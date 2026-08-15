@@ -150,3 +150,66 @@
 .assistant {
     align-self: flex-start;
     }
+
+    /* ========================= */
+/* MOBILE                    */
+/* ========================= */
+
+@media (max-width:900px){
+
+    .chat{
+
+        padding:20px 0;
+
+    }
+
+    .messages{
+
+        width:100%;
+
+        padding:0 16px;
+
+        gap:20px;
+
+    }
+
+    .message{
+
+        max-width:92%;
+
+    }
+
+    .message-content{
+
+        max-width:100%;
+
+        font-size:15px;
+
+        line-height:1.7;
+
+        padding:16px 18px;
+
+    }
+
+    .assistant-header{
+
+        margin-bottom:10px;
+
+    }
+
+    .assistant-avatar{
+
+        width:38px;
+        height:38px;
+
+        border-radius:12px;
+
+    }
+
+    .assistant-header span{
+
+        font-size:16px;
+
+    }
+
+}

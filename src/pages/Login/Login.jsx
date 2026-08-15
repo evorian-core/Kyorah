@@ -1,80 +1,212 @@
 import "./Login.css";
 
-import { Link } from "react-router-dom";
-import { FiArrowRight, FiMail, FiLock } from "react-icons/fi";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
-  return (
-    <main className="login-page">
 
-      <div className="login-background"></div>
+    const navigate = useNavigate();
 
-      <div className="login-card">
+    const { login } = useAuth();
 
-        <img
-          src="/favicon.png"
-          alt="Kyorah"
-          className="login-logo"
-        />
+    const [email, setEmail] = useState("");
 
-        <h1>Bem-vindo de volta</h1>
+    const [password, setPassword] = useState("");
 
-        <p>
-          Entre na sua conta para continuar utilizando a Kyorah.
-        </p>
+    const [loading, setLoading] = useState(false);
 
-        <form className="login-form">
+    const [error, setError] = useState("");
 
-          <div className="input-group">
+    async function handleSubmit(e) {
 
-            <FiMail />
+        e.preventDefault();
 
-            <input
-              type="email"
-              placeholder="E-mail"
-              id="email"
-              name="email"
-            />
+        setError("");
 
-          </div>
+        setLoading(true);
 
-          <div className="input-group">
+        try {
 
-            <FiLock />
+            await login(email, password);
 
-            <input
-              type="password"
-              placeholder="Senha"
-              id="password"
-              name="password"
-            />
+            navigate("/");
 
-          </div>
+        }
 
-          <button
-            type="submit"
-            className="login-button"
-          >
-            Entrar
-            <FiArrowRight />
-          </button>
+        catch (err) {
 
-        </form>
+            setError(
 
-        <div className="login-links">
+                err.message ||
 
-          <Link to="/register">
-            Criar uma conta
-          </Link>
+                "Não foi possível entrar."
 
-          <Link to="/">
-            Voltar
-          </Link>
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+    return (
+
+        <div className="login-page">
+
+            <div className="login-glow"></div>
+
+            <div className="login-card">
+
+                <img
+
+                    src="/favicon.png"
+
+                    alt="Kyorah"
+
+                    className="login-logo"
+
+                />
+
+                <span className="login-badge">
+
+                    OMNIA • EVORIAN
+
+                </span>
+
+                <h1>
+
+                    Bem-vindo
+
+                </h1>
+
+                <p>
+
+                    Entre para continuar usando a Kyorah.
+
+                </p>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="input-group">
+
+                        <label>Email</label>
+
+                        <input
+
+                            type="email"
+
+                            placeholder="voce@email.com"
+
+                            value={email}
+
+                            onChange={(e)=>
+
+                                setEmail(e.target.value)
+
+                            }
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="input-group">
+
+                        <label>Senha</label>
+
+                        <input
+
+                            type="password"
+
+                            placeholder="••••••••••"
+
+                            value={password}
+
+                            onChange={(e)=>
+
+                                setPassword(e.target.value)
+
+                            }
+
+                            required
+
+                        />
+
+                    </div>
+
+                    {
+
+                        error &&
+
+                        <div className="login-error">
+
+                            {error}
+
+                        </div>
+
+                    }
+
+                    <button
+
+                        type="submit"
+
+                        className="login-button"
+
+                        disabled={loading}
+
+                    >
+
+                        {
+
+                            loading
+
+                                ? "Entrando..."
+
+                                : "Entrar"
+
+                        }
+
+                    </button>
+
+                </form>
+
+                <div className="login-divider">
+
+                    <span>
+
+                        ou
+
+                    </span>
+
+                </div>
+
+                <button
+
+                    className="create-account"
+
+                    onClick={()=>
+
+                        navigate("/register")
+
+                    }
+
+                >
+
+                    Criar conta
+
+                </button>
+
+            </div>
 
         </div>
 
-      </div>
+    );
 
-    </main>
-  );
 }

@@ -1,24 +1,14 @@
 :root {
 
-  /* ========================= */
-  /* CORES                     */
-  /* ========================= */
+  /* =======================================
+     TEMA
+  ======================================= */
 
   --bg: #090B16;
 
   --surface: #101726;
   --surface-2: #141D30;
   --surface-3: #1A243A;
-
-  --primary: #7B61FF;
-  --primary-light: #9D8BFF;
-
-  --secondary: #00D6FF;
-  --secondary-light: #72E8FF;
-
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --danger: #EF4444;
 
   --text: #FFFFFF;
   --text-secondary: #A2AEC9;
@@ -27,22 +17,77 @@
   --border: rgba(255,255,255,.08);
   --border-light: rgba(255,255,255,.04);
 
-  /* ========================= */
-  /* GRADIENTES                */
-  /* ========================= */
+  /* =======================================
+     IDENTIDADE DA KYORAH
+  ======================================= */
+
+  --primary: #7B61FF;
+  --primary-light: #9D8BFF;
+
+  --secondary: #00D6FF;
+  --secondary-light: #72E8FF;
+
+  /* =======================================
+     COR PRINCIPAL DINÂMICA
+  ======================================= */
+
+  --accent: #7B61FF;
+  --accent-light: #9D8BFF;
+
+  --accent-soft: rgba(123,97,255,.12);
+  --accent-border: rgba(123,97,255,.30);
+  --accent-glow: rgba(123,97,255,.30);
+
+  /* =======================================
+     VARIÁVEIS SEMÂNTICAS
+  ======================================= */
+
+  --page-bg: var(--bg);
+
+  --card-bg: var(--surface);
+  --card-bg-hover: var(--surface-2);
+  --card-bg-active: var(--surface-3);
+
+  --card-border: var(--border);
+
+  --button-primary: var(--accent);
+  --button-secondary: var(--surface-2);
+
+  --button-text: var(--text);
+
+  --input-bg: var(--surface);
+  --input-border: var(--border);
+
+  --message-ai: var(--surface-2);
+  --message-user: var(--accent);
+
+  --title: var(--text);
+  --subtitle: var(--text-secondary);
+
+  /* =======================================
+     STATUS
+  ======================================= */
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  /* =======================================
+     GRADIENTES
+  ======================================= */
 
   --gradient-primary:
     linear-gradient(
       135deg,
-      #7B61FF,
-      #00D6FF
+      var(--accent),
+      var(--accent-light)
     );
 
   --gradient-surface:
     linear-gradient(
       180deg,
-      #151C31,
-      #0F1527
+      var(--surface-2),
+      var(--surface)
     );
 
   --gradient-text:
@@ -52,9 +97,9 @@
       #C8D5FF
     );
 
-  /* ========================= */
-  /* SOMBRAS                   */
-  /* ========================= */
+  /* =======================================
+     SOMBRAS
+  ======================================= */
 
   --shadow-sm:
     0 8px 18px rgba(0,0,0,.20);
@@ -66,11 +111,11 @@
     0 28px 70px rgba(0,0,0,.42);
 
   --shadow-glow:
-    0 0 40px rgba(123,97,255,.25);
+    0 0 40px var(--accent-glow);
 
-  /* ========================= */
-  /* BORDER RADIUS             */
-  /* ========================= */
+  /* =======================================
+     RADIUS
+  ======================================= */
 
   --radius-sm: 14px;
   --radius-md: 18px;
@@ -78,9 +123,9 @@
   --radius-xl: 32px;
   --radius-2xl: 40px;
 
-  /* ========================= */
-  /* ESPAÇAMENTOS              */
-  /* ========================= */
+  /* =======================================
+     ESPAÇAMENTOS
+  ======================================= */
 
   --space-1: 4px;
   --space-2: 8px;
@@ -93,18 +138,83 @@
   --space-9: 56px;
   --space-10: 72px;
 
-  /* ========================= */
-  /* ANIMAÇÕES                 */
-  /* ========================= */
+  /* =======================================
+     ANIMAÇÕES
+  ======================================= */
 
   --fast: .20s;
   --normal: .30s;
   --slow: .50s;
 
-  /* ========================= */
-  /* SIDEBAR                   */
-  /* ========================= */
+  /* =======================================
+     SIDEBAR
+  ======================================= */
 
   --sidebar-width: 330px;
+
+}
+
+/* ==========================================
+   TEMA CLARO
+========================================== */
+
+[data-theme="light"] {
+
+  --bg: #F4F7FB;
+
+  --surface: #FFFFFF;
+  --surface-2: #F4F7FB;
+  --surface-3: #EAEFF8;
+
+  --text: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+
+  --border: rgba(0,0,0,.08);
+  --border-light: rgba(0,0,0,.05);
+
+}
+
+/* ==========================================
+   CORES DINÂMICAS
+========================================== */
+
+[data-accent="blue"]{
+
+  --accent:#2D5BFF;
+  --accent-light:#61A8FF;
+  --accent-soft:rgba(45,91,255,.12);
+  --accent-border:rgba(45,91,255,.30);
+  --accent-glow:rgba(45,91,255,.30);
+
+}
+
+[data-accent="purple"]{
+
+  --accent:#7B61FF;
+  --accent-light:#9D8BFF;
+  --accent-soft:rgba(123,97,255,.12);
+  --accent-border:rgba(123,97,255,.30);
+  --accent-glow:rgba(123,97,255,.30);
+
+}
+
+[data-accent="green"]{
+
+  --accent:#22C55E;
+  --accent-light:#4ADE80;
+  --accent-soft:rgba(34,197,94,.12);
+  --accent-border:rgba(34,197,94,.30);
+  --accent-glow:rgba(34,197,94,.30);
+
+}
+
+[data-accent="orange"]{
+
+  --accent:#F97316;
+  --accent-light:#FB923C;
+  --accent-soft:rgba(249,115,22,.12);
+  --accent-border:rgba(249,115,22,.30);
+  --accent-glow:rgba(249,115,22,.30);
 
 }

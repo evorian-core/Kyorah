@@ -42,15 +42,26 @@ export async function generateResponse(conversation) {
       model: "llama-3.3-70b-versatile",
 
       messages: [
+  {
+    role: "system",
+    content: KYORAH_SYSTEM_PROMPT,
+  },
+
+  ...(identityMessage
+    ? [
         {
           role: "system",
-          content: KYORAH_SYSTEM_PROMPT,
+          content: identityMessage,
         },
+      ]
+    : []),
 
-        ...conversation,
-      ],
+  ...conversation,
+],
     });
 
+
+    
     console.log("Resposta da Groq:", response);
 
     return response.choices[0].message.content;
@@ -63,8 +74,21 @@ export async function generateResponse(conversation) {
 
 
 // STREAMING
-export async function generateResponseStream(conversation) {
+export async function generateResponseStream(conversation, betaUser) {
   try {
+
+    const identityMessage = betaUser
+      ? `
+IDENTIDADE DO USUÁRIO:
+Nome: ${betaUser.name}
+Identificação Beta: ${betaUser.betaId}
+
+Use o nome do usuário naturalmente quando fizer sentido.
+Não mencione a identificação Beta-00X a menos que o usuário pergunte sobre ela.
+Não diga que recebeu essas informações de um sistema ou de um contexto interno.
+`
+      : "";
+
     const stream = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
 
@@ -73,6 +97,15 @@ export async function generateResponseStream(conversation) {
           role: "system",
           content: KYORAH_SYSTEM_PROMPT,
         },
+
+        ...(identityMessage
+          ? [
+              {
+                role: "system",
+                content: identityMessage,
+              },
+            ]
+          : []),
 
         ...conversation,
       ],

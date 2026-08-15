@@ -1,0 +1,153 @@
+.image-generator-overlay{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.35);
+    z-index:9999;
+}
+
+.generator-card{
+    width:460px;
+    padding:28px;
+    border-radius:28px;
+    background:rgba(20,20,28,.82);
+    backdrop-filter:blur(30px);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.45),
+        0 0 80px rgba(93,120,255,.12);
+    animation:pop .35s ease;
+}
+
+.generator-title{
+    color:#fff;
+    font-size:22px;
+    font-weight:600;
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.generator-preview{
+    position:relative;
+    height:340px;
+    border-radius:22px;
+    overflow:hidden;
+    background:#09090f;
+}
+
+.gradient-bg{
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle at 20% 30%,#7b5cff55,transparent 40%),
+    radial-gradient(circle at 80% 70%,#00d4ff55,transparent 40%),
+    radial-gradient(circle at 50% 50%,#ffffff10,transparent 70%);
+
+    animation:moveGradient 8s linear infinite alternate;
+}
+
+.light-sweep{
+    position:absolute;
+    inset:-20%;
+
+    background:
+    linear-gradient(
+        110deg,
+        transparent 30%,
+        rgba(255,255,255,.08) 45%,
+        rgba(255,255,255,.65) 50%,
+        rgba(255,255,255,.08) 55%,
+        transparent 70%
+    );
+
+    animation:sweep 2.4s linear infinite;
+}
+
+.grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+
+    background-size:34px 34px;
+
+    mask-image:linear-gradient(to bottom,white,transparent);
+}
+
+.particles{
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle,#fff 1px,transparent 2px);
+
+    background-size:70px 70px;
+
+    opacity:.18;
+
+    animation:particles 18s linear infinite;
+}
+
+.generator-subtitle{
+    display:block;
+    color:#a7a7b5;
+    text-align:center;
+    margin-top:20px;
+    font-size:14px;
+}
+
+@keyframes sweep{
+
+    from{
+        transform:translateX(-120%);
+    }
+
+    to{
+        transform:translateX(120%);
+    }
+
+}
+
+@keyframes moveGradient{
+
+    from{
+        transform:translate(-15px,-15px) scale(1);
+    }
+
+    to{
+        transform:translate(15px,15px) scale(1.15);
+    }
+
+}
+
+@keyframes particles{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-80px);
+    }
+
+}
+
+@keyframes pop{
+
+    from{
+        opacity:0;
+        transform:scale(.94);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}

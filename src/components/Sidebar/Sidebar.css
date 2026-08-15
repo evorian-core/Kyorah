@@ -7,9 +7,9 @@
 
     padding:28px;
 
-    background:#111628;
+    background:var(--surface);
 
-    border:1px solid rgba(123,97,255,.25);
+    border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     border-radius:34px;
 
     position:relative;
@@ -40,10 +40,10 @@
     border-radius:32px;
 
     background:linear-gradient(
-        180deg,
-        rgba(123,97,255,.35),
-        rgba(0,214,255,.12)
-    );
+    180deg,
+    color-mix(in srgb, var(--accent) 40%, transparent),
+    color-mix(in srgb, var(--accent-light) 15%, transparent)
+);
 
     mask:
         linear-gradient(#fff 0 0) content-box,
@@ -108,7 +108,7 @@
 
     font-size:28px;
 
-    color:white;
+    color:var(--text);
 
     font-weight:700;
 
@@ -142,7 +142,7 @@
 
     background:var(--gradient-primary);
 
-    color:white;
+   color:var(--text);
 
     font-size:16px;
 
@@ -166,7 +166,7 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 15px 40px rgba(123,97,255,.30);
+    box-shadow:0 15px 40px color-mix(in srgb, var(--accent) 35%, transparent);
 
 }
 
@@ -194,7 +194,7 @@
 
     background:transparent;
 
-    color:#D7DEF1;
+    color:var(--text);
 
     display:flex;
 
@@ -220,10 +220,9 @@
 
 .history.active{
 
-    background:rgba(123,97,255,.16);
+   background:color-mix(in srgb, var(--accent) 18%, transparent);
 
-    border:1px solid rgba(123,97,255,.30);
-
+border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 /* ========================= */
@@ -233,7 +232,7 @@
 
     padding-top:24px;
 
-    border-top:1px solid rgba(255,255,255,.06);
+    border-top:1px solid var(--border);
 }
 
 .settings{
@@ -248,7 +247,7 @@
 
     background:transparent;
 
-    color:white;
+   color:var(--text);
 
     display:flex;
 
@@ -336,14 +335,167 @@
         border:none;
         border-radius:12px;
 
-        background:rgba(255,255,255,.06);
-
-        color:white;
+       background:var(--surface-2);
+       color:var(--text);
 
         cursor:pointer;
 
         transition:.25s;
 
     }
+
+}
+
+/* ===================================== */
+/* HISTORY NOVO LAYOUT                   */
+/* ===================================== */
+
+.history{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:0;
+
+    height:52px;
+
+}
+
+.history-main{
+
+    flex:1;
+
+    height:100%;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    text-align:left;
+
+}
+
+.history-main:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.history.active .history-main{
+
+    background:color-mix(in srgb,var(--accent) 18%,transparent);
+
+    border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+
+}
+
+.history-menu{
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:transparent;
+
+    color:var(--text-secondary);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.history-menu:hover{
+
+    background:rgba(255,255,255,.08);
+
+    color:var(--text);
+
+}
+
+.history-dropdown{
+
+    position:absolute;
+
+    right:0;
+
+    top:46px;
+
+    width:190px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.35);
+
+    z-index:100;
+
+}
+
+.history-dropdown button{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    background:transparent;
+
+    color:#ff6b6b;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 16px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.history-dropdown button:hover{
+
+    background:rgba(255,80,80,.12);
 
 }
