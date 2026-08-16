@@ -80,6 +80,46 @@ export async function createChat(
 
 
 /* ===========================
+   VERIFICAR ACESSO AO CHAT
+=========================== */
+
+/*
+ * Verifica se o chat pertence ao
+ * usuário autenticado.
+ */
+
+export async function verifyUserChatAccess(
+    chatId,
+    userId
+) {
+
+    const result =
+        await pool.query(
+            `
+            SELECT
+                id
+
+            FROM chats
+
+            WHERE id = $1
+
+            AND user_id = $2
+
+            LIMIT 1
+            `,
+            [
+                chatId,
+                userId,
+            ]
+        );
+
+
+    return result.rows.length > 0;
+
+}
+
+
+/* ===========================
    EXCLUIR CHAT
 =========================== */
 
@@ -348,6 +388,64 @@ export async function createBetaChat(
 
 
     return result.rows[0];
+
+}
+
+
+/* ===========================
+   VERIFICAR ACESSO AO CHAT BETA
+=========================== */
+
+/*
+ * Confirma que o chat:
+ *
+ * 1. pertence à conta técnica Beta;
+ * 2. pertence ao betaId autenticado.
+ */
+
+export async function verifyBetaChatAccess(
+    chatId,
+    betaUser
+) {
+
+    if (
+        !betaUser?.betaId
+    ) {
+
+        return false;
+
+    }
+
+
+    const userId =
+        await getBetaSystemUser();
+
+
+    const result =
+        await pool.query(
+            `
+            SELECT
+                id
+
+            FROM chats
+
+            WHERE id = $1
+
+            AND user_id = $2
+
+            AND title LIKE $3
+
+            LIMIT 1
+            `,
+            [
+                chatId,
+                userId,
+                `%${betaUser.betaId}%`,
+            ]
+        );
+
+
+    return result.rows.length > 0;
 
 }
 

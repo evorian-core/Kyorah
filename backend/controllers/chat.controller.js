@@ -4,6 +4,11 @@ import { decideTool } from "../core/ToolRouter.js";
 
 import { saveMessage } from "../services/message.service.js";
 
+import {
+    verifyUserChatAccess,
+    verifyBetaChatAccess,
+} from "../services/chats.service.js";
+
 
 export async function chat(req, res) {
 
@@ -41,6 +46,43 @@ export async function chat(req, res) {
             });
 
         }
+
+        // ==========================================
+// VERIFICAÇÃO DE ACESSO AO CHAT
+// ==========================================
+
+let hasAccess = false;
+
+if (req.betaUser) {
+
+    hasAccess =
+        await verifyBetaChatAccess(
+            chatId,
+            req.betaUser
+        );
+
+} else if (req.user) {
+
+    hasAccess =
+        await verifyUserChatAccess(
+            chatId,
+            req.user.id
+        );
+
+}
+
+if (!hasAccess) {
+
+    return res.status(403).json({
+
+        success: false,
+
+        message:
+            "Você não tem acesso a esta conversa.",
+
+    });
+
+}
 
 
         // ==========================================
@@ -117,10 +159,11 @@ const conversation = [
 
 
         const stream =
-    await generateResponseStream(
-        conversation,
-        betaUser
-    );
+     await generateResponseStream(
+    conversation,
+    req.betaUser
+);
+
 
 
         let assistantResponse = "";
