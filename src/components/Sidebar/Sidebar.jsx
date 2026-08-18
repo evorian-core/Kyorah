@@ -76,9 +76,9 @@ export default function Sidebar({
                 <div className="sidebar-logo">
                     <div className="logo-box">
                         <img
-                            src="/favicon.png"
-                            alt="Kyorah"
-                        />
+    src={`${import.meta.env.BASE_URL}favicon.png`}
+    alt="Kyorah"
+/>
                     </div>
 
                     <div>
