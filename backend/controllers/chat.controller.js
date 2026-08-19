@@ -2,7 +2,11 @@ import { generateResponseStream } from "../providers/GeminiProvider.js";
 import { generateImage } from "../providers/ImageProvider.js";
 import { decideTool } from "../core/ToolRouter.js";
 
-import { saveMessage } from "../services/message.service.js";
+import {
+    saveMessage,
+    getMessages,
+    getBetaMessages,
+} from "../services/message.service.js";
 
 import {
     verifyUserChatAccess,
@@ -150,19 +154,58 @@ if (!hasAccess) {
         // ==========================================
 
 
-const conversation = [
-    {
-        role: "user",
-        content: message,
-    },
-];
+// ==========================================
+// CARREGA HISTÓRICO DA CONVERSA
+// ==========================================
+
+let history = [];
+
+if (req.betaUser) {
+
+    history =
+        await getBetaMessages(
+            chatId,
+            req.betaUser
+        );
+
+} else if (req.user) {
+
+    history =
+        await getMessages(
+            chatId,
+            req.user.id
+        );
+
+}
 
 
-        const stream =
-     await generateResponseStream(
-    conversation,
-    req.betaUser
-);
+// ==========================================
+// CONVERTE HISTÓRICO PARA O FORMATO DA IA
+// ==========================================
+
+const conversation = history
+    .filter(
+        msg =>
+            msg.type === "text"
+            && msg.content
+    )
+    .map(
+        msg => ({
+            role: msg.role,
+            content: msg.content,
+        })
+    );
+
+
+// ==========================================
+// GERA RESPOSTA
+// ==========================================
+
+const stream =
+    await generateResponseStream(
+        conversation,
+        req.betaUser
+    );
 
 
 

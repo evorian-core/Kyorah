@@ -38,6 +38,11 @@ const BETA_USERS = {
         code: "V3T6_n2R",
     },
 
+    "Beta-009": {
+    name: "Williandro",
+    code: "WiM.S_Ce0",
+},
+
 };
 
 

@@ -113,7 +113,7 @@ export default function Register() {
 
                 <img
 
-                    src="/favicon.png"
+                    src={`${import.meta.env.BASE_URL}favicon.png`}
 
                     alt="Kyorah"
 

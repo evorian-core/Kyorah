@@ -6,7 +6,7 @@ export default function ThinkingIndicator() {
 
       <div className="assistant-header">
         <div className="assistant-avatar">
-          <img src="/favicon.png" alt="Kyorah" />
+          <img src={`${import.meta.env.BASE_URL}favicon.png`} alt="Kyorah" />
         </div>
 
         <span>Kyorah</span>

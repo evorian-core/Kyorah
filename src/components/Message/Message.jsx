@@ -40,7 +40,7 @@ export default function Message({ message }) {
 
           <div className="assistant-avatar">
             <img
-              src="/favicon.png"
+              src={`${import.meta.env.BASE_URL}favicon.png`}
               alt="Kyorah"
             />
           </div>

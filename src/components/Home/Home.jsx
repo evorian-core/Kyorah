@@ -43,7 +43,7 @@ export default function Home() {
 
 
       <img
-        src="/favicon.png"
+        src={`${import.meta.env.BASE_URL}favicon.png`}
         alt="Kyorah"
         className="home-logo float"
       />

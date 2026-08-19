@@ -90,7 +90,7 @@ Não diga que recebeu essas informações de um sistema ou de um contexto intern
       : "";
 
     const stream = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-20b",
 
       messages: [
         {

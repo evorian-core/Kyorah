@@ -37,6 +37,11 @@ const BETA_USERS = {
     name: "Valéria Palhano",
     code: "V3T6_n2R",
   },
+
+  9: {
+    name: "Williandro",
+    code: "WiM.S_Ce0",
+  },
 };
 
 export default function BetaAccess() {

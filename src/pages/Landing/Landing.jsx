@@ -23,7 +23,7 @@ export default function Landing() {
         <div className="hero-content">
 
           <img
-            src="/favicon.png"
+            src={`${import.meta.env.BASE_URL}favicon.png`}
             alt="Kyorah"
             className="hero-logo"
           />
@@ -300,7 +300,7 @@ export default function Landing() {
       <footer>
 
         <img
-          src="/favicon.png"
+          src={`${import.meta.env.BASE_URL}favicon.png`}
           alt="Kyorah"
         />
 
