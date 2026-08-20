@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_API_URL: https://kyorah-pz58tcxno-evorian-cores-projects.vercel.app
+          VITE_API_URL: https://kyorah-api.vercel.app
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
