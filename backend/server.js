@@ -19,6 +19,7 @@ app.use(cors({
         "http://localhost:5173",
         "http://localhost:4173",
         "http://localhost:5174",
+        "https://evorian-core.github.io",
     ],
     credentials: true,
 }));
@@ -47,8 +48,6 @@ try {
 
 
 const PORT = process.env.PORT || 3001;
-
-// await initializeDatabase();
 
 export default app;
 

@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
             return;
         }
 
-        fetch("http://localhost:3001/api/auth/me", {
+        fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
 
     async function login(email, password) {
         const response = await fetch(
-            "http://localhost:3001/api/auth/login",
+            `${import.meta.env.VITE_API_URL}/api/auth/login`,
             {
                 method: "POST",
                 headers: {
@@ -85,7 +85,7 @@ export function AuthProvider({ children }) {
 
     async function register(userData) {
         const response = await fetch(
-            "http://localhost:3001/api/auth/register",
+            `${import.meta.env.VITE_API_URL}/api/auth/register`,
             {
                 method: "POST",
                 headers: {
