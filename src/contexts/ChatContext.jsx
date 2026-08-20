@@ -1410,38 +1410,29 @@ async function deleteChat(
 
         catch (err) {
 
-            console.error(
-                "❌ Erro ao enviar mensagem:",
-                err
-            );
+    console.error(
+        "❌ Erro ao enviar mensagem:",
+        err
+    );
 
+    setGeneratingImage(false);
 
-            setGeneratingImage(
-                false
-            );
+    if (err?.code === "IMAGE_LIMIT") {
+        throw err;
+    }
 
+    updateMessages([
+        ...updatedMessages,
+        {
+            role: "assistant",
+            type: "text",
+            text:
+                err.message ||
+                "Erro ao conectar com a Kyorah.",
+        },
+    ]);
 
-            updateMessages([
-
-                ...updatedMessages,
-
-                {
-
-                    role:
-                        "assistant",
-
-                    type:
-                        "text",
-
-                    text:
-                        err.message ||
-                        "Erro ao conectar com a Kyorah.",
-
-                },
-
-            ]);
-
-        }
+}
 
         finally {
 
