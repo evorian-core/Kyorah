@@ -50,6 +50,10 @@ const PORT = process.env.PORT || 3001;
 
 // await initializeDatabase();
 
-app.listen(PORT, () => {
-  console.log(`🚀 Kyorah API rodando na porta ${PORT}`);
-});
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Kyorah API rodando na porta ${PORT}`);
+  });
+}
