@@ -228,3 +228,33 @@
     }
 
 }
+
+/* ---------- Responsividade Mobile ---------- */
+
+@media (max-width: 600px) {
+
+    .message-content {
+        max-width: 92%;
+        padding: 15px 17px;
+        line-height: 1.65;
+        border-radius: 20px;
+    }
+
+    .message.assistant .message-content {
+        max-width: 92%;
+    }
+
+    .message.user .message-content {
+        max-width: 85%;
+    }
+
+    .assistant-header {
+        gap: 9px;
+        margin-bottom: 8px;
+    }
+
+    .assistant-header span {
+        font-size: .9rem;
+    }
+
+}
